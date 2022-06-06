@@ -1,0 +1,72 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>AR Image Target Test</title>
+  
+    <!-- THREE.js -->
+    <script src="https://unpkg.com/three@0.121.1/build/three.min.js"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <style type="text/css">
+    </style>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"></head>
+  <body style="margin: 0px; padding: 0px; overflow: hidden;">
+  <script>
+  
+    const searchParam = (key) => {
+      return new URLSearchParams(window.location.search).get(key);
+    }
+    let entityId = `${window.location.origin}/api-tm/target-manager/target-uid/${searchParam('targetIdUrl')}`;
+    let htmlElement = document.createElement('div');
+    let script = document.createElement('script');
+    script.src = `${window.location.origin}/api/webar?key=${searchParam('appKey')}`;
+    script.onload = () => {
+      letsee.ready(() => {
+        letsee.start();
+        letsee.addTarget(entityId).then(entity => {
+          htmlElement.id = 'container';
+          htmlElement.style.width = entity.physicalSize.width+'px';
+          htmlElement.style.height = entity.physicalSize.height+'px';
+          htmlElement.style.border = '2px solid #278afe';
+  
+          let topElement = document.createElement('div');
+          topElement.id = 'top';
+          topElement.style.width = entity.physicalSize.width+'px';
+          topElement.style.height = '14px';
+          topElement.style.border = '2px solid #278afe';
+          topElement.style.background = '#278afe';
+          topElement.style.position = 'absolute';
+          topElement.style.transform = 'translate(-50%, -50%)';
+          topElement.style.top = '-5%';
+          topElement.style.left = '50%';
+          topElement.style.textAlign = 'center';
+          topElement.style.color = '#fff';
+          topElement.style.fontSize = '10px';
+  
+          let title = document.createElement('p');
+          title.style.fontWeight = 'bolder';
+          title.innerHTML = 'AR Image Target Test';
+          title.style.margin = '0 auto';
+          title.style.padding='0';
+          topElement.appendChild(title);
+          htmlElement.appendChild(topElement);
+          let xrElement = letsee.createXRElement(htmlElement, entity);
+        });
+      });
+      letsee.init();
+      letsee.onTrackStart((e) => {
+        console.warn('trackstart',e);
+      });
+      letsee.onTrackEnd((e) => {
+        //console.warn('trackend',e);
+      });
+      letsee.onTrackMove((e) => {
+        //console.warn('trackmove', e);
+      })
+    };
+    document.body.append(script);
+  
+  </script><script src="https://developer.letsee.io/api/webar?key=affa143d294d1201da5823a3804cb6f6dff02238991ffc27b86e42ea5456a697"></script>
+  
+  
+  <div id="whale-extension-shopping-lens"></div><div id="ls_container" style="position: fixed; overflow: hidden; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 100;"><div id="ls_video-renderers" style="position: absolute; overflow: hidden; visibility: visible; top: 0px; left: 0px; width: 1280px; height: 720px; transform-origin: 0px 0px; transform: scale(1.15139);"><canvas width="1280" height="720"></canvas></div><div id="ls_html-renderers" style="position: absolute; overflow: hidden; visibility: hidden; top: 0px; left: 0px; width: 1280px; height: 720px; transform-origin: 0px 0px; transform: scale(1.15139); perspective: 971.719px;"><div style="transform-style: preserve-3d; width: 1280px; height: 720px; transform: translateZ(971.619px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) translate(640px, 360px);"><div id="container" style="width: 150px; height: 225.141px; border: 2px solid rgb(39, 138, 254); position: absolute; display: block; transform: translate(-50%, -50%) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);"><div id="top" style="width: 150px; height: 14px; border: 2px solid rgb(39, 138, 254); background: rgb(39, 138, 254); position: absolute; transform: translate(-50%, -50%); top: -5%; left: 50%; text-align: center; color: rgb(255, 255, 255); font-size: 10px;"><p style="font-weight: bolder; margin: 0px auto; padding: 0px;">AR Image Target Test</p></div></div></div></div></div><video id="src_video" playsinline="true" autoplay="" width="1473" height="828" style="margin-bottom: 100px;"></video><script src="https://letsee-dev.s3.ap-northeast-2.amazonaws.com/webar/dacs.js" id="dacs"></script></body><whale-quicksearch translate="no"></whale-quicksearch></html>
